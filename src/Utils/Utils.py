@@ -1,4 +1,5 @@
 import pygame
+from pathlib import Path
 
 def positionIsInsideRect(posToCheck, rect):
     """
@@ -8,3 +9,9 @@ def positionIsInsideRect(posToCheck, rect):
     """
     rect = pygame.Rect(rect[0], rect[1], rect[2], rect[3])
     return rect.collidepoint(posToCheck)
+
+def getStringCurrentWorkingDirectory():
+    """
+    Returns a string containing the current working directory
+    """
+    return str(Path().resolve().parent)

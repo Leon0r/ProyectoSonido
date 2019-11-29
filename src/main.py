@@ -1,6 +1,9 @@
 import pygame
 import sys
 from GameObjects.PopUpMenu import PopUpMenu
+from Utils.ResourcesManager import ResourcesManager
+from Utils.Sprite import Sprite
+from Utils.Utils import getStringCurrentWorkingDirectory
 
 #--------------------------CALLBACK TEST------------
 def callBackTest(f, a, _object):
@@ -16,6 +19,11 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Hello World")
 pygame.font.init()
 x = 0
+#-------------------RESOURCES----------------------
+resourcesManager = ResourcesManager()
+resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
+spriteTest = Sprite(resourcesManager.getImage("ear.png"))
+spriteTest.setSize(50, 50)
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
 popUp = PopUpMenu(["holaa", "kk"], [(callBackTest, ["parameter", x]), (callBackTest1, [])], 0xaaaaaa)
@@ -46,6 +54,8 @@ while running:
     #render
     for gameObject in gameObjects:
         gameObject.render(screen)
+    
+    spriteTest.render(screen, 100, 100)
 
     #dumps data into the screen
     lastFrameTime = currentTime
