@@ -4,7 +4,7 @@ from pygame.transform import scale
 class Sprite:
     _image = None
 
-    def __init__(self, image):
+    def __init__(self, image = None):
         """
         Initializes sprite with the given image
         """
@@ -21,3 +21,9 @@ class Sprite:
         Sets the size of the current image
         """
         self._image = scale(self._image, (width, height))
+
+    def setImage(self, image):
+        """
+        Sets sprite's image
+        """
+        self._image = image

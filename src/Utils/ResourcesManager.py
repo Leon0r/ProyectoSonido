@@ -4,10 +4,10 @@ from pygame import image
 from os.path import isfile, join
 
 class ResourcesManager:
-    _imageDictionary = None #stores every image {key : image}
+    _imageDictionary = {} #stores every image {key : image}
 
     def __init__(self):
-        self._imageDictionary = {}
+        pass
 
     def loadImagesFromDirectory(self, directoryPath):
         """
@@ -27,7 +27,7 @@ class ResourcesManager:
         if imageName in self._imageDictionary:
             return self._imageDictionary[imageName]
         else: 
-            print(imageName + " is not in the dictionary")
+            print(str(imageName) + " is not in the dictionary")
             
     @staticmethod
     def _formatPath(directoryPath, filePath):

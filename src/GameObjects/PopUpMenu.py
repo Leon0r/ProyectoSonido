@@ -70,7 +70,7 @@ class PopUpMenu(GameObject):
         given callback --> (foo, *args). Adds to callback args this object
         """
         self._menu_font = pygame.font.SysFont('Comic Sans MS', 30)
-        self.setWidth(200)
+        self.setWidth(250)
         optionsNames = PopUpMenu._parseOptionsName(optionsNames)
         for i in range(len(optionsNames)):
             callbacks[i][1].append(self) #appends the object to the callback

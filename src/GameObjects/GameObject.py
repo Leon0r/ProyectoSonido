@@ -1,5 +1,5 @@
 class GameObject:
-    x, y, width, height = 0, 0, 0, 0
+    x, y, width, height = 0, 0, 50, 50
     active = True
 
     #@abstractmethod
