@@ -1,14 +1,22 @@
 import pygame
 import sys
 from GameObjects.PopUpMenu import PopUpMenu
+from GameObjects.FMODObject import FMODObject
+from Utils.ResourcesManager import ResourcesManager
+from Utils.Utils import getStringCurrentWorkingDirectory
 
 #--------------------------CALLBACK TEST------------
 def callBackTest(f, a, _object):
     print(str(_object.getX()) + f + str(a)) #example of getting variable
     #parameters of an object
 
-def callBackTest1(_object):
-    print("Test1")
+def addFMODObject(gameObjects, imageName, _object):
+    #todo: add listener instead of fmod object
+    fmodObject= FMODObject()
+    fmodObject.setSpriteFromImage(resourcesManager.getImage(imageName))
+    fmodObject.setX(_object.getX())
+    fmodObject.setY(_object.getY())
+    gameObjects.insert(0, fmodObject) #inserts the element at tht beggining of the list
 
 #-------------------PYGAME-------------------------
 screen = pygame.display.set_mode((600,600))
@@ -16,10 +24,15 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Hello World")
 pygame.font.init()
 x = 0
+#-------------------RESOURCES----------------------
+resourcesManager = ResourcesManager()
+resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["holaa", "kk"], [(callBackTest, ["parameter", x]), (callBackTest1, [])], 0xaaaaaa)
+popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODObject, [gameObjects, "ear.png"]), 
+    (addFMODObject, [gameObjects, "fountain.png"])], 0xaaaaaa)
 gameObjects.append(popUp)
+
 running = True
 lastFrameTime = pygame.time.get_ticks()
 
@@ -41,7 +54,6 @@ while running:
     #update
     for gameObject in gameObjects:
         gameObject.update(deltaTime)
-
 
     #render
     for gameObject in gameObjects:
