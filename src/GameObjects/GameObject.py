@@ -26,6 +26,12 @@ class GameObject:
     def getHeight(self):
         return self.height
 
+    def getPosition(self):
+        """
+        Returns tuple (x, y)
+        """
+        return (self.getX(), self.getY())
+
     def isActive(self):
         return self.active
 
@@ -34,6 +40,14 @@ class GameObject:
 
     def setY(self, y):
         self.y = y
+
+    def setPosition(self, position):
+        """
+        Set the x and y of this game object.
+        Position = tuple (x, ys)
+        """
+        self.setX(position[0])
+        self.setY(position[1])
 
     def setWidth(self, width):
         self.width = width

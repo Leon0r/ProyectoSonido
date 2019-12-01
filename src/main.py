@@ -29,8 +29,8 @@ resourcesManager = ResourcesManager()
 resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["holaa", "Add Listener"], [(callBackTest, ["parameter", x]), 
-    (addFMODObject, [gameObjects, "ear.png"])], 0xaaaaaa)
+popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODObject, [gameObjects, "ear.png"]), 
+    (addFMODObject, [gameObjects, "fountain.png"])], 0xaaaaaa)
 gameObjects.append(popUp)
 
 running = True
