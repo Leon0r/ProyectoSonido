@@ -2,6 +2,7 @@ import sys
 import pygame
 from GameObjects.PopUpMenu import PopUpMenu
 from GameObjects.FMODSource import FMODSource
+from GameObjects.FMODListener import FMODListener
 from Utils.ResourcesManager import ResourcesManager
 from Utils.Utils import getStringCurrentWorkingDirectory
 from FMODManagement.FMOD import FMOD
@@ -13,11 +14,16 @@ def callBackTest(f, a, _object):
     #parameters of an object
 
 def addFMODSource(gameObjects, imageName, soundName, _object):
-    fmodSource= FMODSource(resourcesManager.getSound(soundName), MODE.LOOP_NORMAL)
+    fmodSource= FMODSource(resourcesManager.getSound(soundName), MODE.LOOP_NORMAL | MODE.THREED)
     fmodSource.setSpriteFromImage(resourcesManager.getImage(imageName))
-    fmodSource.setX(_object.getX())
-    fmodSource.setY(_object.getY())
+    fmodSource.setPosition((_object.getX(), _object.getY()))
     gameObjects.insert(0, fmodSource) #inserts the element at tht beggining of the list
+
+def addFMODListener(gameObjects, imageName, _object):
+    fmodListener = FMODListener()
+    fmodListener.setSpriteFromImage(resourcesManager.getImage(imageName))
+    fmodListener.setPosition((_object.getX(), _object.getY()))
+    gameObjects.insert(0, fmodListener) #inserts the element at tht beggining of the list
 
 #-------------------PYGAME-------------------------
 screen = pygame.display.set_mode((600,600))
@@ -28,7 +34,7 @@ x = 0
 
 #-------------------FMOD--------------------------
 FMOD.init()
-
+FMOD.setRollOffScale(0.1)
 #-------------------RESOURCES----------------------
 resourcesManager = ResourcesManager()
 resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
@@ -36,7 +42,7 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODSource, [gameObjects, "ear.png", "0879_on_Exh.ogg"]), 
+popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODListener, [gameObjects, "ear.png"]), 
     (addFMODSource, [gameObjects, "fountain.png", "0879_on_Exh.ogg"])], 0xaaaaaa)
 gameObjects.append(popUp)
 
@@ -69,6 +75,7 @@ while running:
     #dumps data into the screen
     lastFrameTime = currentTime
     pygame.display.update()
+    FMOD.update()
     clock.tick(30)
 
 #------------------------------------QUIT------------------------

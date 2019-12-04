@@ -3,11 +3,11 @@ import pyfmodex
 from pyfmodex.flags import MODE
 from GameObjects.DraggableObject import DraggableObject
 from FMODManagement.FMOD import FMOD
-from Utils.ResourcesManager import ResourcesManager
 
 class FMODSource(DraggableObject):
     _sound = None
     _mode = None
+    _channel = None
 
     def __init__(self, sound, mode = MODE.DEFAULT):
         """
@@ -16,8 +16,8 @@ class FMODSource(DraggableObject):
         super()
         self._sound = sound
         self._mode = mode
-        FMOD.createChannel(self._sound, self._mode)
-        FMOD.playChannel(sound)
+        self._channel = FMOD.createChannel(self._sound, self._mode)
+        self.setPosition(self.getPosition())
 
     def render(self, pygameScreen):
         """
@@ -45,6 +45,10 @@ class FMODSource(DraggableObject):
         sets source's mode (changes the channel mode itself)
         """
         self._mode = mode
-        FMOD.setChannelMode(self._mode)
+        FMOD.setChannelMode(self._channel, self._mode)
+
+    def setPosition(self, position):
+        super().setPosition(position)
+        FMOD.setChannelPosition(self._channel, self.getPosition())
 
 
