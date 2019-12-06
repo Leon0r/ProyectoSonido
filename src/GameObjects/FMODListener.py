@@ -19,6 +19,7 @@ class FMODListener(DraggableObject):
         """
         Renders the sprite at current (x, y) position
         """
+        #maybe draw the cones --> ?? pygame.draw.polygon(pygameScreen, 0x00ff00, ((self.getX() + self.getWidth()/2, self.getY() + self.getHeight()/2), (self.getX() + self.getWidth()/2 - 50, self.getY() - 50), (self.getX() + self.getWidth()/2 + 50, self.getY() - 50)))
         super().render(pygameScreen)
 
     def update(self, time):
