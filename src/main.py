@@ -42,8 +42,8 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODListener, [gameObjects, "ear.png"]), 
-    (addFMODSource, [gameObjects, "fountain.png", "0879_on_Exh.ogg"])], 0xaaaaaa)
+popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODListener, [gameObjects, "Listener.png"]), 
+    (addFMODSource, [gameObjects, "Source.png", "0879_on_Exh.ogg"])], 0xaaaaaa)
 gameObjects.append(popUp)
 
 #------------------MAIN LOOP-----------------------------
@@ -51,7 +51,7 @@ running = True
 lastFrameTime = pygame.time.get_ticks()
 while running:
     #clear
-    screen.fill(0xff0000)
+    screen.fill(0x889ea2)
     #get events
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
