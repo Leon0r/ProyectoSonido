@@ -1,6 +1,8 @@
 import pyfmodex
 from pyfmodex.flags import MODE, TIMEUNIT
 from pyfmodex.system import System, Listener, ThreedSettings
+from pyfmodex.reverb import Reverb3D
+from pyfmodex.structures import VECTOR
 
 class FMOD:
     _system = None #static variable
@@ -74,3 +76,22 @@ class FMOD:
         """
         FMOD._threedSettings.rolloff_scale = scale
 
+    @staticmethod
+    def createReverb():
+        return FMOD._system.create_reverb_3d()
+
+    @staticmethod
+    def setReverbPosition(reverb, pos):
+        # aux = VECTOR()
+        # aux = aux.from_list([pos[0], pos[1], 0])
+        # reverb._threed_attrs = [[pos[0], pos[1], 0], 0, 0]
+        aux = [pos[0], pos[1], 0]
+        reverb.position = aux
+    
+    @staticmethod
+    def setReverbMinDistance(reverb, minDist):
+        reverb.min_distance = minDist
+
+    @staticmethod
+    def setReverbMaxDistance(reverb, maxDist):
+        reverb.max_distance = maxDist

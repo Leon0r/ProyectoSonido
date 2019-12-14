@@ -3,6 +3,7 @@ import pygame
 from GameObjects.PopUpMenu import PopUpMenu
 from GameObjects.FMODSource import FMODSource
 from GameObjects.FMODListener import FMODListener
+from GameObjects.FMODReverb import FMODReverb
 from Utils.ResourcesManager import ResourcesManager
 from Utils.Utils import getStringCurrentWorkingDirectory
 from FMODManagement.FMOD import FMOD
@@ -25,6 +26,12 @@ def addFMODListener(gameObjects, imageName, _object):
     fmodListener.setPosition((_object.getX(), _object.getY()))
     gameObjects.insert(0, fmodListener) #inserts the element at tht beggining of the list
 
+def addFMODReverb(gameObjects, imageName, _object):
+    fmodReverb = FMODReverb()
+    fmodReverb.setSpriteFromImage(resourcesManager.getImage(imageName))
+    #fmodReverb.setPosition((_object.getX(), _object.getY()))
+    gameObjects.insert(0, fmodReverb) #inserts the element at tht beggining of the list
+
 #-------------------PYGAME-------------------------
 screen = pygame.display.set_mode((600,600))
 clock = pygame.time.Clock()
@@ -42,8 +49,11 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["Add Listener", "Add Source"], [(addFMODListener, [gameObjects, "Listener.png"]), 
-    (addFMODSource, [gameObjects, "Source.png", "0879_on_Exh.ogg"])], 0xaaaaaa)
+popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"], 
+        [(addFMODListener, [gameObjects, "Listener.png"]), 
+        (addFMODSource, [gameObjects, "Source.png", "0879_on_Exh.ogg"]),
+        (addFMODReverb, [gameObjects, "Source.png"])], 0xaaaaaa)
+
 gameObjects.append(popUp)
 
 #------------------MAIN LOOP-----------------------------
