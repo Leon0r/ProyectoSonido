@@ -29,7 +29,7 @@ def addFMODListener(gameObjects, imageName, _object):
 def addFMODReverb(gameObjects, imageName, _object):
     fmodReverb = FMODReverb()
     fmodReverb.setSpriteFromImage(resourcesManager.getImage(imageName))
-    #fmodReverb.setPosition((_object.getX(), _object.getY()))
+    fmodReverb.setPosition((_object.getX(), _object.getY()))
     gameObjects.insert(0, fmodReverb) #inserts the element at tht beggining of the list
 
 #-------------------PYGAME-------------------------
@@ -51,7 +51,7 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 gameObjects = []
 popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"], 
         [(addFMODListener, [gameObjects, "Listener.png"]), 
-        (addFMODSource, [gameObjects, "Source.png", "0879_on_Exh.ogg"]),
+        (addFMODSource, [gameObjects, "Source.png", "steps1.ogg"]),
         (addFMODReverb, [gameObjects, "Source.png"])], 0xaaaaaa)
 
 gameObjects.append(popUp)

@@ -48,6 +48,9 @@ class FMODSource(DraggableObject):
         FMOD.setChannelMode(self._channel, self._mode)
 
     def setPosition(self, position):
+        """
+        redefined setPosotion. Sets the go position and the fmodsource's position
+        """
         super().setPosition(position)
         FMOD.setChannelPosition(self._channel, self.getPosition())
 
