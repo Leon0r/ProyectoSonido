@@ -1,8 +1,13 @@
 import pyfmodex
+import FMODManagement.REVERB_PRESETS as reverb_presets
 from pyfmodex.flags import MODE, TIMEUNIT
 from pyfmodex.system import System, Listener, ThreedSettings
 from pyfmodex.reverb import Reverb3D
 from pyfmodex.structures import VECTOR
+from pyfmodex.exceptions import FmodError
+from pyfmodex.utils import ckresult
+from pyfmodex.globalvars import dll as _dll
+from ctypes import *
 
 class FMOD:
     _system = None #static variable
@@ -77,21 +82,41 @@ class FMOD:
         FMOD._threedSettings.rolloff_scale = scale
 
     @staticmethod
-    def createReverb():
-        return FMOD._system.create_reverb_3d()
+    def createReverb(preset = reverb_presets.reverb_underwater, x = 0, y = 0, z = 0, min = 1, max = 1000):
+        """
+        create a reverb object. Redefined with Jaime's code
+        """
+        r = FMOD._system.create_reverb_3d()
+        ckresult(_dll.FMOD_Reverb3D_SetActive(r._ptr, True))
+        pos = VECTOR(x,y,z)
+
+        # por alguna razon no coge directamente estos float y hay que enviarlos como c_float
+        fmin = c_float(min)
+        fmax = c_float(max)
+        ckresult(_dll.FMOD_Reverb3D_Set3DAttributes(r._ptr, byref(pos), fmin, fmax))
+        
+        props = preset
+        ckresult(_dll.FMOD_Reverb3D_SetProperties(r._ptr, byref(props)))
+        return r
 
     @staticmethod
     def setReverbPosition(reverb, pos):
-        # aux = VECTOR()
-        # aux = aux.from_list([pos[0], pos[1], 0])
-        # reverb._threed_attrs = [[pos[0], pos[1], 0], 0, 0]
+        """
+        sets a reverb's position
+        """
         aux = [pos[0], pos[1], 0]
         reverb.position = aux
     
     @staticmethod
     def setReverbMinDistance(reverb, minDist):
+        """
+        sets a reverb's min distance of effect
+        """
         reverb.min_distance = minDist
 
     @staticmethod
     def setReverbMaxDistance(reverb, maxDist):
+        """
+        sets a reverb's max distance of effect
+        """
         reverb.max_distance = maxDist

@@ -32,6 +32,9 @@ class FMODListener(DraggableObject):
         super().handleInput(event)
 
     def setPosition(self, position):
+        """
+        redefined setPosition. Sets the go position and the fmodlistener position
+        """
         super().setPosition(position)
         FMOD.setListenerPosition(self._listener, position)
 

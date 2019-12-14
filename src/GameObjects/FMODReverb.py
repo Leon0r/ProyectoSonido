@@ -13,8 +13,8 @@ class FMODReverb(DraggableObject):
         """
         super()
         self._reverb = FMOD.createReverb()
-        self.setMinDistance(0)
-        self.setMaxDistance(100)
+        self.setMinDistance(1)
+        self.setMaxDistance(1000)
         self.setPosition(self.getPosition())
 
     def render(self, pygameScreen):
@@ -25,6 +25,9 @@ class FMODReverb(DraggableObject):
         super().render(pygameScreen)
 
     def update(self, time):
+        """
+        update of the gameObject
+        """
         super().update(time)
 
     def handleInput(self, event):
@@ -34,11 +37,20 @@ class FMODReverb(DraggableObject):
         super().handleInput(event)
 
     def setPosition(self, position):
+        """
+        redefined setPositions. Sets the go position and the reverb position
+        """
         super().setPosition(position)
         FMOD.setReverbPosition(self._reverb, position)
 
     def setMinDistance(self, minDist):
+        """
+        min dist of the reverb
+        """
         FMOD.setReverbMinDistance(self._reverb, minDist)
     
     def setMaxDistance(self, maxDist):
+        """
+        max distance of the reverb
+        """
         FMOD.setReverbMaxDistance(self._reverb, maxDist)
