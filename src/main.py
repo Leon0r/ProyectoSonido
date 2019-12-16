@@ -52,7 +52,7 @@ gameObjects = []
 popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"], 
         [(addFMODListener, [gameObjects, "Listener.png"]), 
         (addFMODSource, [gameObjects, "Source.png", "steps1.ogg"]),
-        (addFMODReverb, [gameObjects, "Source.png"])], 0xaaaaaa)
+        (addFMODReverb, [gameObjects, "Reverb.png"])], 0xaaaaaa)
 
 gameObjects.append(popUp)
 
