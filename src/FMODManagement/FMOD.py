@@ -64,14 +64,23 @@ class FMOD:
 
     @staticmethod
     def setChannelPosition(channel, pos):
+        """
+        sets channel position. pos -> tuple (x, y)
+        """
         channel.position = [pos[0], pos[1], 0]
 
     @staticmethod
     def createListener():
+        """
+        creates a fmod listener and returns it
+        """
         return FMOD._system.listener(0)
 
     @staticmethod
     def setListenerPosition(listener, pos):
+        """
+        sets listener position. pos -> tuple (x, y)
+        """
         listener.position = [pos[0], pos[1], 0]
 
     @staticmethod
@@ -102,7 +111,7 @@ class FMOD:
     @staticmethod
     def setReverbPosition(reverb, pos):
         """
-        sets a reverb's position
+        sets reverb position. pos -> tuple (x, y)
         """
         aux = [pos[0], pos[1], 0]
         reverb.position = aux
@@ -120,3 +129,22 @@ class FMOD:
         sets a reverb's max distance of effect
         """
         reverb.max_distance = maxDist
+
+    @staticmethod
+    def createGeometry(maxpoligons = 1, maxvertices = 4):
+        """
+        creates a FMOD geometry object. In order for it to work, you need 
+        to establish the polygons (FMOD doc, source: https://www.rubydoc.info/gems/fmod/FMOD/Geometry)
+        """
+        return FMOD._system.create_geometry(maxpoligons, maxvertices)
+
+    @staticmethod
+    def setGeometryPosition(geometry, pos):
+        """
+        sets geometry position. pos -> tuple (x, y)
+        """
+        geometry.position = [10.0, 10.0, 0.0]
+
+    # @staticmethod
+    # def addPolygonToGeometry(geometry, ...):
+    #     addPolygon...
