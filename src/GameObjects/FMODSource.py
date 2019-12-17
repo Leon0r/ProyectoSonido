@@ -32,7 +32,7 @@ class FMODSource(DraggableObject):
         """
         Handles dragging event
         """
-        super().handleInput(event)
+        return super().handleInput(event)
 
     def setSound(self, sound):
         """

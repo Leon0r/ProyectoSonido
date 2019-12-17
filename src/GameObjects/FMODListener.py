@@ -14,6 +14,7 @@ class FMODListener(DraggableObject):
         super()
         self._listener = FMOD.createListener()
         self.setPosition(self.getPosition())
+        FMOD.setRollOffScale(0.01)
 
     def render(self, pygameScreen):
         """
@@ -29,7 +30,7 @@ class FMODListener(DraggableObject):
         """
         Handles dragging event
         """
-        super().handleInput(event)
+        return super().handleInput(event)
 
     def setPosition(self, position):
         """

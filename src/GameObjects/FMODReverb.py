@@ -34,7 +34,7 @@ class FMODReverb(DraggableObject):
         """
         Handles dragging event
         """
-        super().handleInput(event)
+        return super().handleInput(event)
 
     def setPosition(self, position):
         """
