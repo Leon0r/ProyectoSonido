@@ -29,7 +29,7 @@ class MenuOption(GameObject):
         """
         if self.isActive():
             if self._mouseOver:
-                pygame.draw.rect(pygameScreen, 0x0000ff, (self.getX(), self.getY(), self.getWidth(), self.getHeight()))
+                pygame.draw.rect(pygameScreen, 0xd7c5f8, (self.getX(), self.getY(), self.getWidth(), self.getHeight()))
 
             pygameScreen.blit(self._textSurface, (self.getX(), self.getY()))
 
@@ -41,13 +41,17 @@ class MenuOption(GameObject):
         Checks if the mouse cursor is over the option and if the user
         left-clicked the button (todo: callback here)
         """
+        handled = False
         if event.type == pygame.MOUSEMOTION:
             self._mouseOver = positionIsInsideRect(pygame.mouse.get_pos(), (self.getX(),
                 self.getY(), self.getWidth(), self.getHeight())) #if the mouse
                 #is over the option, its gonna be highlighted
+            handled = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1: #0: LEFT_CLICK
                 self._executeButtonTask()
+                handled = True
+        return handled
 
     def _executeButtonTask(self):
         """
@@ -59,7 +63,7 @@ class MenuOption(GameObject):
 
 class PopUpMenu(GameObject):
     _OPTION_HEIGHT = 50
-    _color = 0xaaaaaa
+    _color = 0xccedf3
     _menu_options = []
     _menu_font = None
 
@@ -69,7 +73,7 @@ class PopUpMenu(GameObject):
         Starts inactive. Creates the menu options with the given name and the
         given callback --> (foo, *args). Adds to callback args this object
         """
-        self._menu_font = pygame.font.SysFont('Comic Sans MS', 30)
+        self._menu_font = pygame.font.SysFont('Sylfaen', 35)
         self.setWidth(250)
         optionsNames = PopUpMenu._parseOptionsName(optionsNames)
         for i in range(len(optionsNames)):
@@ -103,6 +107,7 @@ class PopUpMenu(GameObject):
         Handles all user input involving the pop up menu (right click, left click,
         right clock inside an option)
         """
+        handled = False
         if self.isActive(): #only if this is active -> send event to the options
             for option in self._menu_options:
                 option.handleInput(event)
@@ -111,8 +116,11 @@ class PopUpMenu(GameObject):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 3: #3: RIGHT_CLICK
                 self.popMenu(pygame.mouse.get_pos())
+                handled = True
             elif event.button == 1: #0: LEFT_CLICK
                 self.hideMenu()
+                handled = True
+        return handled
 
     def popMenu(self, mousePos):
         """

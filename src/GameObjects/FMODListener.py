@@ -14,6 +14,7 @@ class FMODListener(DraggableObject):
         super()
         self._listener = FMOD.createListener()
         self.setPosition(self.getPosition())
+        FMOD.setRollOffScale(0.01)
 
     def setPosition(self, position):
         """
