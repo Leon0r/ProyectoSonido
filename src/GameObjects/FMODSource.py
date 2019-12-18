@@ -19,21 +19,6 @@ class FMODSource(DraggableObject):
         self._channel = FMOD.createChannel(self._sound, self._mode)
         self.setPosition(self.getPosition())
 
-    def render(self, pygameScreen):
-        """
-        Renders the sprite at current (x, y) position
-        """
-        super().render(pygameScreen)
-
-    def update(self, time):
-        super().update(time)
-
-    def handleInput(self, event):
-        """
-        Handles dragging event
-        """
-        return super().handleInput(event)
-
     def setSound(self, sound):
         """
         sets source's sound

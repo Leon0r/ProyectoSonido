@@ -4,6 +4,7 @@ from GameObjects.PopUpMenu import PopUpMenu
 from GameObjects.FMODSource import FMODSource
 from GameObjects.FMODListener import FMODListener
 from GameObjects.FMODReverb import FMODReverb
+from GameObjects.FMODGeometry import FMODGeometry
 from Utils.ResourcesManager import ResourcesManager
 from Utils.Utils import getStringCurrentWorkingDirectory
 from FMODManagement.FMOD import FMOD
@@ -56,6 +57,9 @@ popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"],
 
 gameObjects.append(popUp)
 
+# geom = FMODGeometry()
+# geom.setSpriteFromImage(resourcesManager.getImage("Source.png"))
+# gameObjects.insert(0, geom) #inserts the element at tht beggining of the list
 #------------------MAIN LOOP-----------------------------
 running = True
 handled = False
