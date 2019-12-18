@@ -14,6 +14,10 @@ class GameObject:
     def handleInput(self, event):
         pass
 
+    #@abstractmethod
+    def release(self):
+        pass
+
     def getX(self):
         return self.x
 

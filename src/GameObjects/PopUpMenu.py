@@ -46,20 +46,22 @@ class MenuOption(GameObject):
             self._mouseOver = positionIsInsideRect(pygame.mouse.get_pos(), (self.getX(),
                 self.getY(), self.getWidth(), self.getHeight())) #if the mouse
                 #is over the option, its gonna be highlighted
-            handled = True
+            handled = self._mouseOver
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1: #0: LEFT_CLICK
-                self._executeButtonTask()
-                handled = True
+                handled = self._executeButtonTask()
         return handled
 
     def _executeButtonTask(self):
         """
-        Executes the callback if the mouse is inside the button
+        Executes the callback if the mouse is inside the button, returns true to indicate if this go has been handled
         """
         if positionIsInsideRect(pygame.mouse.get_pos(), (self.getX(),
             self.getY(), self.getWidth(), self.getHeight())):
             self._callback(*self._args)
+            return True
+
+        return False
 
 class PopUpMenu(GameObject):
     _OPTION_HEIGHT = 50

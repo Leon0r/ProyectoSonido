@@ -54,3 +54,9 @@ class FMODReverb(DraggableObject):
         max distance of the reverb
         """
         FMOD.setReverbMaxDistance(self._reverb, maxDist)
+    
+    def release(self):
+        """
+        calls fmod reverb release
+        """
+        self._reverb.release()

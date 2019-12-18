@@ -35,18 +35,16 @@ class DraggableObject(GameObject):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1: #3: LEFT_CLICK
                     mousePosition = pygame.mouse.get_pos()
-                    self._isBeingDragged = self._hasClickedInside(mousePosition) and True #check if the user
+                    self._isBeingDragged = self._hasClickedInside(mousePosition) #check if the user
                     #has clicked inside the game object
                     if self._isBeingDragged: #calculate the offset wit the mousePosition if this is being dragged
                         self._offsetX, self._offsetY = self._calculateOffset(mousePosition)
                         handled = True 
             elif event.type == pygame.MOUSEMOTION:
-                self._moveGameObject(pygame.mouse.get_pos()) 
-                handled = True
+                handled = self._moveGameObject(pygame.mouse.get_pos()) 
             elif event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1: #3: LEFT_CLICK
                     self._isBeingDragged = False #the user has stopeed dragging this gameObject
-                    handled = True
         return handled
 
     def setSpriteFromImage(self, image):
@@ -85,10 +83,13 @@ class DraggableObject(GameObject):
 
     def _moveGameObject(self, mousePosition):
         """
-        moves the game object is its being dragged, according to the offset calculated before
+        moves the game object is its being dragged, according to the offset calculated before.
+        returns true to indicate if this go has been handled or not
         """
         if self._isBeingDragged:
             self.setPosition(self._getOffsetPosition(mousePosition))
+            return True
+        return False
 
     def _getOffsetPosition(self, position):
         """

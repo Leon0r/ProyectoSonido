@@ -50,6 +50,13 @@ class ResourcesManager:
             return self._soundsDictionary[soundName]
         else: 
             print(str(soundName) + " is not in the dictionary")
+
+    def release(self):
+        """
+        release all fmod sounds
+        """
+        for key in self._soundsDictionary.keys():
+            self._soundsDictionary[key].release()
             
     @staticmethod
     def _formatPath(directoryPath, filePath):

@@ -33,16 +33,23 @@ def addFMODReverb(gameObjects, imageName, _object):
     fmodReverb.setPosition((_object.getX(), _object.getY()))
     gameObjects.insert(0, fmodReverb) #inserts the element at tht beggining of the list
 
+def addFMODGeometry(gameObjects, imageName, _object):
+    fmodGeometry = FMODGeometry()
+    fmodGeometry.setSpriteFromImage(resourcesManager.getImage(imageName))
+    fmodGeometry.setPosition((_object.getX(), _object.getY()))
+    gameObjects.insert(0, fmodGeometry) #inserts the element at tht beggining of the list
+
 #-------------------PYGAME-------------------------
-screen = pygame.display.set_mode((600,600))
+screen = pygame.display.set_mode((800,800))
 clock = pygame.time.Clock()
-pygame.display.set_caption("Hello World")
+pygame.display.set_caption("Proyecto Sonido")
 pygame.font.init()
 x = 0
 
 #-------------------FMOD--------------------------
 FMOD.init()
 FMOD.setRollOffScale(0.1)
+
 #-------------------RESOURCES----------------------
 resourcesManager = ResourcesManager()
 resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
@@ -57,9 +64,6 @@ popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"],
 
 gameObjects.append(popUp)
 
-# geom = FMODGeometry()
-# geom.setSpriteFromImage(resourcesManager.getImage("Source.png"))
-# gameObjects.insert(0, geom) #inserts the element at tht beggining of the list
 #------------------MAIN LOOP-----------------------------
 running = True
 handled = False
@@ -77,6 +81,8 @@ while running:
 
         for gameObject in gameObjects:
             handled = gameObject.handleInput(e)
+            if handled:
+                break
 
     currentTime = pygame.time.get_ticks()
     # deltaTime in seconds.
@@ -96,7 +102,10 @@ while running:
     clock.tick(30)
 
 #------------------------------------QUIT------------------------
+for gameObject in gameObjects:
+    gameObject.release()
+resourcesManager.release()
+FMOD.release()
 pygame.display.quit()
 pygame.quit()
-FMOD.release()
 sys.exit()
