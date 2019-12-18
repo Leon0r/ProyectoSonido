@@ -21,4 +21,10 @@ class FMODGeometry(DraggableObject):
         super().setPosition(position)
         FMOD.setGeometryPosition(self._geometry, position)
 
+    def release(self):
+        """
+        calls fmod release geometry
+        """
+        self._geometry.release()
+
 

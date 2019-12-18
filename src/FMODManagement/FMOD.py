@@ -143,7 +143,7 @@ class FMOD:
         """
         sets geometry position. pos -> tuple (x, y)
         """
-        geometry.position = [10.0, 10.0, 0.0]
+        geometry.position = [pos[0], pos[1], 0.0]
 
     # @staticmethod
     # def addPolygonToGeometry(geometry, ...):
