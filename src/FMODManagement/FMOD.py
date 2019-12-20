@@ -63,6 +63,13 @@ class FMOD:
         channel.play()
 
     @staticmethod
+    def stopChannel(channel):
+        """
+        stops a given channel
+        """
+        channel.stop()
+
+    @staticmethod
     def setChannelPosition(channel, pos):
         """
         sets channel position. pos -> tuple (x, y)

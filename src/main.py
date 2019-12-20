@@ -51,7 +51,7 @@ FMOD.init()
 FMOD.setRollOffScale(0.1)
 
 #-------------------RESOURCES----------------------
-resourcesManager = ResourcesManager()
+resourcesManager = ResourcesManager.getInstance()
 resourcesManager.loadImagesFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sprites")
 resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\\resources\\sounds")
 
@@ -59,7 +59,7 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 gameObjects = []
 popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"], 
         [(addFMODListener, [gameObjects, "Listener.png"]), 
-        (addFMODSource, [gameObjects, "Source.png", "walkingLoop.wav"]),
+        (addFMODSource, [gameObjects, "Source.png", "steps0.wav"]),
         (addFMODReverb, [gameObjects, "Reverb.png"])], 0xccedf3)
 
 gameObjects.append(popUp)
