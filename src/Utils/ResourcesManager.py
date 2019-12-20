@@ -7,9 +7,20 @@ from FMODManagement import FMOD
 class ResourcesManager:
     _imageDictionary = {} #stores every image {key : image}
     _soundsDictionary = {}
+    _instance = None
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def getInstance():
+        """
+        singleton pattern
+        """
+        if not ResourcesManager._instance:
+            ResourcesManager._instance = ResourcesManager()
+
+        return ResourcesManager._instance
 
     def loadImagesFromDirectory(self, directoryPath):
         """
@@ -50,6 +61,13 @@ class ResourcesManager:
             return self._soundsDictionary[soundName]
         else: 
             print(str(soundName) + " is not in the dictionary")
+    
+    def getSoundByIndex(self, index):
+        """
+        Get a sound from the dictionary by the given index. (index % dic.length)
+        """
+        value = index % len(self._soundsDictionary)
+        return list(self._soundsDictionary.values())[value]
 
     def release(self):
         """
