@@ -3,6 +3,7 @@ import pyfmodex
 from GameObjects.DraggableObject import DraggableObject
 from FMODManagement.FMOD import FMOD
 
+
 class FMODGeometry(DraggableObject):
     _geometry = None
 
@@ -26,5 +27,3 @@ class FMODGeometry(DraggableObject):
         calls fmod release geometry
         """
         self._geometry.release()
-
-

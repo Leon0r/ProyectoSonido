@@ -2,19 +2,19 @@ class GameObject:
     x, y, width, height = 0, 0, 50, 50
     active = True
 
-    #@abstractmethod
+    # @abstractmethod
     def render(self, pygameScreen):
         pass
 
-    #@abstractmethod
+    # @abstractmethod
     def update(self, time):
         pass
 
-    #@abstractmethod
+    # @abstractmethod
     def handleInput(self, event):
         pass
 
-    #@abstractmethod
+    # @abstractmethod
     def release(self):
         pass
 

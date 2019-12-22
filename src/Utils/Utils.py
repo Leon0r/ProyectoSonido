@@ -1,6 +1,7 @@
 import pygame
 from pathlib import Path
 
+
 def positionIsInsideRect(posToCheck, rect):
     """
     Check if a position is inside a given rectangle.
@@ -9,6 +10,7 @@ def positionIsInsideRect(posToCheck, rect):
     """
     rect = pygame.Rect(rect[0], rect[1], rect[2], rect[3])
     return rect.collidepoint(posToCheck)
+
 
 def getStringCurrentWorkingDirectory():
     """

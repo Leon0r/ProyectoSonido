@@ -4,6 +4,7 @@ from pyfmodex.flags import MODE
 from GameObjects.DraggableObject import DraggableObject
 from FMODManagement.FMOD import FMOD
 
+
 class FMODReverb(DraggableObject):
     _reverb = None
 
@@ -21,7 +22,7 @@ class FMODReverb(DraggableObject):
         """
         Renders the sprite at current (x, y) position
         """
-        #maybe draw the cones --> ?? pygame.draw.polygon(pygameScreen, 0x00ff00, ((self.getX() + self.getWidth()/2, self.getY() + self.getHeight()/2), (self.getX() + self.getWidth()/2 - 50, self.getY() - 50), (self.getX() + self.getWidth()/2 + 50, self.getY() - 50)))
+        # maybe draw the cones --> ?? pygame.draw.polygon(pygameScreen, 0x00ff00, ((self.getX() + self.getWidth()/2, self.getY() + self.getHeight()/2), (self.getX() + self.getWidth()/2 - 50, self.getY() - 50), (self.getX() + self.getWidth()/2 + 50, self.getY() - 50)))
         super().render(pygameScreen)
 
     def update(self, time):
@@ -48,15 +49,18 @@ class FMODReverb(DraggableObject):
         min dist of the reverb
         """
         FMOD.setReverbMinDistance(self._reverb, minDist)
-    
+
     def setMaxDistance(self, maxDist):
         """
         max distance of the reverb
         """
         FMOD.setReverbMaxDistance(self._reverb, maxDist)
-    
+
     def release(self):
         """
-        calls fmod reverb release
+        deactivates the reverb and calls fmod reverb release
         """
+        self._reverb.active = False
+        FMOD.update()  # if you dont call system.update before releasing an object, all the changes made to it are not applied
         self._reverb.release()
+        self._reverb = None

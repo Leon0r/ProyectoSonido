@@ -9,8 +9,9 @@ from pyfmodex.utils import ckresult
 from pyfmodex.globalvars import dll as _dll
 from ctypes import *
 
+
 class FMOD:
-    _system = None #static variable
+    _system = None  # static variable
     _threedSettings = None
 
     @staticmethod
@@ -40,7 +41,7 @@ class FMOD:
         return FMOD._system.create_sound(path, False)
 
     @staticmethod
-    def createChannel(sound, mode = MODE.DEFAULT):
+    def createChannel(sound, mode=MODE.DEFAULT):
         """
         creates a channel with the given sound and mode
         """
@@ -98,19 +99,20 @@ class FMOD:
         FMOD._threedSettings.rolloff_scale = scale
 
     @staticmethod
-    def createReverb(preset = reverb_presets.reverb_underwater, x = 0, y = 0, z = 0, min = 1, max = 1000):
+    def createReverb(preset=reverb_presets.reverb_underwater, x=0, y=0, z=0, min=1, max=1000):
         """
         create a reverb object. Redefined with Jaime's code
         """
         r = FMOD._system.create_reverb_3d()
         ckresult(_dll.FMOD_Reverb3D_SetActive(r._ptr, True))
-        pos = VECTOR(x,y,z)
+        pos = VECTOR(x, y, z)
 
         # por alguna razon no coge directamente estos float y hay que enviarlos como c_float
         fmin = c_float(min)
         fmax = c_float(max)
-        ckresult(_dll.FMOD_Reverb3D_Set3DAttributes(r._ptr, byref(pos), fmin, fmax))
-        
+        ckresult(_dll.FMOD_Reverb3D_Set3DAttributes(
+            r._ptr, byref(pos), fmin, fmax))
+
         props = preset
         ckresult(_dll.FMOD_Reverb3D_SetProperties(r._ptr, byref(props)))
         return r
@@ -122,7 +124,7 @@ class FMOD:
         """
         aux = [pos[0], pos[1], 0]
         reverb.position = aux
-    
+
     @staticmethod
     def setReverbMinDistance(reverb, minDist):
         """
@@ -138,7 +140,7 @@ class FMOD:
         reverb.max_distance = maxDist
 
     @staticmethod
-    def createGeometry(maxpoligons = 1, maxvertices = 4):
+    def createGeometry(maxpoligons=1, maxvertices=4):
         """
         creates a FMOD geometry object. In order for it to work, you need 
         to establish the polygons (FMOD doc, source: https://www.rubydoc.info/gems/fmod/FMOD/Geometry)

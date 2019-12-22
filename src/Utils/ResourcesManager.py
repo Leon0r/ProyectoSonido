@@ -4,8 +4,9 @@ from pygame import image
 from os.path import isfile, join
 from FMODManagement import FMOD
 
+
 class ResourcesManager:
-    _imageDictionary = {} #stores every image {key : image}
+    _imageDictionary = {}  # stores every image {key : image}
     _soundsDictionary = {}
     _instance = None
 
@@ -31,7 +32,7 @@ class ResourcesManager:
             self._getImagesFromDirectory(directoryPath)
         else:
             print(directoryPath + " does not exists")
-    
+
     def getImage(self, imageName):
         """
         Get an image from the dictionary. If it does not exists, returns nothing and
@@ -39,7 +40,7 @@ class ResourcesManager:
         """
         if imageName in self._imageDictionary:
             return self._imageDictionary[imageName]
-        else: 
+        else:
             print(str(imageName) + " is not in the dictionary")
 
     def loadSoundsFromDirectory(self, directoryPath):
@@ -51,7 +52,7 @@ class ResourcesManager:
             self._getSoundsFromDirectory(directoryPath)
         else:
             print(directoryPath + " does not exists")
-    
+
     def getSound(self, soundName):
         """
         Get a sound from the dictionary. If it does not exists, returns nothing and
@@ -59,9 +60,9 @@ class ResourcesManager:
         """
         if soundName in self._soundsDictionary:
             return self._soundsDictionary[soundName]
-        else: 
+        else:
             print(str(soundName) + " is not in the dictionary")
-    
+
     def getSoundByIndex(self, index):
         """
         Get a sound from the dictionary by the given index. (index % dic.length)
@@ -75,27 +76,30 @@ class ResourcesManager:
         """
         for key in self._soundsDictionary.keys():
             self._soundsDictionary[key].release()
-            
+
     @staticmethod
     def _formatPath(directoryPath, filePath):
         """
         Simple path formatter. Adds "\\" to the path
         """
         return directoryPath + "\\" + filePath
-    
+
     def _getImagesFromDirectory(self, directoryPath):
         """
         Iterates through the images of directoryPath and loads them
         """
-        files = [f for f in listdir(directoryPath) if isfile(join(directoryPath, f))]
+        files = [f for f in listdir(directoryPath)
+                 if isfile(join(directoryPath, f))]
         for filePath in files:
-            self._imageDictionary[filePath] = image.load(self._formatPath(directoryPath, filePath))
-        
+            self._imageDictionary[filePath] = image.load(
+                self._formatPath(directoryPath, filePath))
+
     def _getSoundsFromDirectory(self, directoryPath):
         """
         Iterates through the sounds of directoryPath and loads them
         """
-        files = [f for f in listdir(directoryPath) if isfile(join(directoryPath, f))]
+        files = [f for f in listdir(directoryPath)
+                 if isfile(join(directoryPath, f))]
         for filePath in files:
-            self._soundsDictionary[filePath] = FMOD.FMOD.loadSound(self._formatPath(directoryPath, filePath))
-            
+            self._soundsDictionary[filePath] = FMOD.FMOD.loadSound(
+                self._formatPath(directoryPath, filePath))

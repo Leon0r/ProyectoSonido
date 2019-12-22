@@ -4,6 +4,7 @@ from pyfmodex.flags import MODE
 from GameObjects.DraggableObject import DraggableObject
 from FMODManagement.FMOD import FMOD
 
+
 class FMODListener(DraggableObject):
     _listener = None
 
@@ -30,5 +31,3 @@ class FMODListener(DraggableObject):
         super().release()
         self.setPosition((-5000, -5000))
         self._listener = None
-
-
