@@ -65,6 +65,7 @@ class MenuOption(GameObject):
 
 class PopUpMenu(GameObject):
     _OPTION_HEIGHT = 50
+    _POP_UP_MENU_WIDTH = 325
     _color = 0xccedf3
     _menu_options = []
     _menu_font = None
@@ -76,7 +77,7 @@ class PopUpMenu(GameObject):
         given callback --> (foo, *args). Adds to callback args this object
         """
         self._menu_font = pygame.font.SysFont('Sylfaen', 35)
-        self.setWidth(250)
+        self.setWidth(self._POP_UP_MENU_WIDTH)
         optionsNames = PopUpMenu._parseOptionsName(optionsNames)
         for i in range(len(optionsNames)):
             callbacks[i][1].append(self) #appends the object to the callback

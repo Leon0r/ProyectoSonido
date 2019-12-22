@@ -23,4 +23,12 @@ class FMODListener(DraggableObject):
         super().setPosition(position)
         FMOD.setListenerPosition(self._listener, position)
 
+    def release(self):
+        """
+        sends away the listener (cant remove, cant deceease to 0 for some reason). Sets listener to None
+        """
+        super().release()
+        self.setPosition((-5000, -5000))
+        self._listener = None
+
 

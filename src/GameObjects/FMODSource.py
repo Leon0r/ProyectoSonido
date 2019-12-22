@@ -58,4 +58,12 @@ class FMODSource(DraggableObject):
         super().setPosition(position)
         FMOD.setChannelPosition(self._channel, self.getPosition())
 
+    def release(self):
+        """
+        stops the channel and set it to none
+        """
+        super().release()
+        FMOD.stopChannel(self._channel)
+        self._channel = None
+
 

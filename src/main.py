@@ -15,6 +15,14 @@ def callBackTest(f, a, _object):
     print(str(_object.getX()) + f + str(a)) #example of getting variable
     #parameters of an object
 
+def removeLastElementInserted(gameObjects, _object):
+    if len(gameObjects) < 2: #cant remove the pop up menu
+        print("Can't remove element from empyt list")
+        return
+    
+    gameObjects[0].release()
+    gameObjects.remove(gameObjects[0])
+
 def addFMODSource(gameObjects, imageName, soundName, _object):
     fmodSource= FMODSource(resourcesManager.getSound(soundName), MODE.LOOP_NORMAL | MODE.THREED)
     fmodSource.setSpriteFromImage(resourcesManager.getImage(imageName))
@@ -57,10 +65,11 @@ resourcesManager.loadSoundsFromDirectory(getStringCurrentWorkingDirectory() + "\
 
 #-------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb"], 
+popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb", "Remove last element"], 
         [(addFMODListener, [gameObjects, "Listener.png"]), 
         (addFMODSource, [gameObjects, "Source.png", "steps0.wav"]),
-        (addFMODReverb, [gameObjects, "Reverb.png"])], 0xccedf3)
+        (addFMODReverb, [gameObjects, "Reverb.png"]),
+        (removeLastElementInserted, [gameObjects])], 0xccedf3)
 
 gameObjects.append(popUp)
 
