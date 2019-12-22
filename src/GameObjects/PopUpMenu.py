@@ -2,13 +2,14 @@ import pygame
 from GameObjects.GameObject import GameObject
 from Utils.Utils import positionIsInsideRect
 
+
 class MenuOption(GameObject):
-    _name = "" #option name
-    _font = None #font object. Creates the text surface
+    _name = ""  # option name
+    _font = None  # font object. Creates the text surface
     _textSurface = None
     _mouseOver = False
-    _callback = None #called in _executeButtonTask
-    _args = None #callback's args
+    _callback = None  # called in _executeButtonTask
+    _args = None  # callback's args
 
     def __init__(self, name, width, height, font, callback):
         """
@@ -29,7 +30,8 @@ class MenuOption(GameObject):
         """
         if self.isActive():
             if self._mouseOver:
-                pygame.draw.rect(pygameScreen, 0xd7c5f8, (self.getX(), self.getY(), self.getWidth(), self.getHeight()))
+                pygame.draw.rect(pygameScreen, 0xd7c5f8, (self.getX(
+                ), self.getY(), self.getWidth(), self.getHeight()))
 
             pygameScreen.blit(self._textSurface, (self.getX(), self.getY()))
 
@@ -44,11 +46,11 @@ class MenuOption(GameObject):
         handled = False
         if event.type == pygame.MOUSEMOTION:
             self._mouseOver = positionIsInsideRect(pygame.mouse.get_pos(), (self.getX(),
-                self.getY(), self.getWidth(), self.getHeight())) #if the mouse
-                #is over the option, its gonna be highlighted
+                                                                            self.getY(), self.getWidth(), self.getHeight()))  # if the mouse
+            # is over the option, its gonna be highlighted
             handled = self._mouseOver
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1: #0: LEFT_CLICK
+            if event.button == 1:  # 0: LEFT_CLICK
                 handled = self._executeButtonTask()
         return handled
 
@@ -57,14 +59,16 @@ class MenuOption(GameObject):
         Executes the callback if the mouse is inside the button, returns true to indicate if this go has been handled
         """
         if positionIsInsideRect(pygame.mouse.get_pos(), (self.getX(),
-            self.getY(), self.getWidth(), self.getHeight())):
+                                                         self.getY(), self.getWidth(), self.getHeight())):
             self._callback(*self._args)
             return True
 
         return False
 
+
 class PopUpMenu(GameObject):
     _OPTION_HEIGHT = 50
+    _POP_UP_MENU_WIDTH = 325
     _color = 0xccedf3
     _menu_options = []
     _menu_font = None
@@ -76,13 +80,13 @@ class PopUpMenu(GameObject):
         given callback --> (foo, *args). Adds to callback args this object
         """
         self._menu_font = pygame.font.SysFont('Sylfaen', 35)
-        self.setWidth(250)
+        self.setWidth(self._POP_UP_MENU_WIDTH)
         optionsNames = PopUpMenu._parseOptionsName(optionsNames)
         for i in range(len(optionsNames)):
-            callbacks[i][1].append(self) #appends the object to the callback
-            #parameters to get access to this object variables (needed for fmod maybe?)
+            callbacks[i][1].append(self)  # appends the object to the callback
+            # parameters to get access to this object variables (needed for fmod maybe?)
             option = MenuOption(optionsNames[i], self.getWidth(),
-                self._OPTION_HEIGHT, self._menu_font, callbacks[i])
+                                self._OPTION_HEIGHT, self._menu_font, callbacks[i])
             option.setActive(False)
 
             self._menu_options.append(option)
@@ -96,7 +100,8 @@ class PopUpMenu(GameObject):
         Draw rectangle (color, x, y, width, height) and the options
         """
         if self.isActive():
-            pygame.draw.rect(pygameScreen, self._color, (self.x, self.y, self.width, self.height))
+            pygame.draw.rect(pygameScreen, self._color,
+                             (self.x, self.y, self.width, self.height))
             for option in self._menu_options:
                 option.render(pygameScreen)
 
@@ -110,16 +115,16 @@ class PopUpMenu(GameObject):
         right clock inside an option)
         """
         handled = False
-        if self.isActive(): #only if this is active -> send event to the options
+        if self.isActive():  # only if this is active -> send event to the options
             for option in self._menu_options:
                 option.handleInput(event)
 
-        #menu handler (hides and shows the menu)
+        # menu handler (hides and shows the menu)
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 3: #3: RIGHT_CLICK
+            if event.button == 3:  # 3: RIGHT_CLICK
                 self.popMenu(pygame.mouse.get_pos())
                 handled = True
-            elif event.button == 1: #0: LEFT_CLICK
+            elif event.button == 1:  # 0: LEFT_CLICK
                 self.hideMenu()
                 handled = True
         return handled

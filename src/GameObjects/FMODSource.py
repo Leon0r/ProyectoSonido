@@ -5,13 +5,14 @@ from GameObjects.DraggableObject import DraggableObject
 from Utils.ResourcesManager import ResourcesManager
 from FMODManagement.FMOD import FMOD
 
+
 class FMODSource(DraggableObject):
     _sound = None
     _mode = None
     _channel = None
     _soundIndex = 0
 
-    def __init__(self, sound, mode = MODE.DEFAULT):
+    def __init__(self, sound, mode=MODE.DEFAULT):
         """
         Set source's sound, mode, creates a channel and plays it
         """
@@ -26,13 +27,14 @@ class FMODSource(DraggableObject):
         handle right click button over source (change the sound file)
         """
         handled = super().handleInput(event)
-        if self.isActive(): #only if this is active
+        if self.isActive():  # only if this is active
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 3: #3: RIGHT_CLICK
+                if event.button == 3:  # 3: RIGHT_CLICK
                     mousePosition = pygame.mouse.get_pos()
                     if self._hasClickedInside(mousePosition):
                         self._soundIndex += 1
-                        self.setSound(ResourcesManager.getInstance().getSoundByIndex(self._soundIndex))
+                        self.setSound(ResourcesManager.getInstance(
+                        ).getSoundByIndex(self._soundIndex))
                         handled = True
         return handled
 
@@ -58,4 +60,10 @@ class FMODSource(DraggableObject):
         super().setPosition(position)
         FMOD.setChannelPosition(self._channel, self.getPosition())
 
-
+    def release(self):
+        """
+        stops the channel and set it to none
+        """
+        super().release()
+        FMOD.stopChannel(self._channel)
+        self._channel = None

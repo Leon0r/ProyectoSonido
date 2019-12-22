@@ -1,10 +1,11 @@
 from pygame import display
 from pygame.transform import scale
 
+
 class Sprite:
     _image = None
 
-    def __init__(self, image = None):
+    def __init__(self, image=None):
         """
         Initializes sprite with the given image
         """
@@ -14,7 +15,7 @@ class Sprite:
         """
         Renders the image at (x, y) position in pygameScreen
         """
-        pygameScreen.blit(self._image, (x,y))
+        pygameScreen.blit(self._image, (x, y))
 
     def setSize(self, width, height):
         """
