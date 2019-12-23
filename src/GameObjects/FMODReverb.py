@@ -3,10 +3,12 @@ import pyfmodex
 from pyfmodex.flags import MODE
 from GameObjects.DraggableObject import DraggableObject
 from FMODManagement.FMOD import FMOD
+from FMODManagement.REVERB_PRESETS import reverb_list, getReverbByIndex
 
 
 class FMODReverb(DraggableObject):
     _reverb = None
+    _reverbIndex = 0
 
     def __init__(self):
         """
@@ -18,24 +20,23 @@ class FMODReverb(DraggableObject):
         self.setMaxDistance(1000)
         self.setPosition(self.getPosition())
 
-    def render(self, pygameScreen):
-        """
-        Renders the sprite at current (x, y) position
-        """
-        # maybe draw the cones --> ?? pygame.draw.polygon(pygameScreen, 0x00ff00, ((self.getX() + self.getWidth()/2, self.getY() + self.getHeight()/2), (self.getX() + self.getWidth()/2 - 50, self.getY() - 50), (self.getX() + self.getWidth()/2 + 50, self.getY() - 50)))
-        super().render(pygameScreen)
-
-    def update(self, time):
-        """
-        update of the gameObject
-        """
-        super().update(time)
-
     def handleInput(self, event):
         """
-        Handles dragging event
+        Handles dragging event and right click reverb (changes the reverb, prints selected reverb)
         """
-        return super().handleInput(event)
+        handled = super().handleInput(event)
+        if self.isActive():  # only if this is active
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 3:  # 3: RIGHT_CLICK
+                    mousePosition = pygame.mouse.get_pos()
+                    if self._hasClickedInside(mousePosition):
+                        nReverb = getReverbByIndex(self._reverbIndex)
+                        print("Current reverb: " + str(nReverb[1]))
+                        FMOD.setReverbProperties(self._reverb, nReverb[0])
+                        self._reverbIndex += 1
+                        handled = True
+
+        return handled
 
     def setPosition(self, position):
         """

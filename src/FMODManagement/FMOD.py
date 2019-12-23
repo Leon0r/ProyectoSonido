@@ -118,6 +118,13 @@ class FMOD:
         return r
 
     @staticmethod
+    def setReverbProperties(reverb, properties):
+        """
+        sets reverb Properties. Properties -> REVERB_PROPERTIES(...)
+        """
+        reverb.properties = properties
+
+    @staticmethod
     def setReverbPosition(reverb, pos):
         """
         sets reverb position. pos -> tuple (x, y)
