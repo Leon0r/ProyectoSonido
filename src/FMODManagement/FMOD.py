@@ -7,10 +7,13 @@ from pyfmodex.structures import VECTOR
 from pyfmodex.exceptions import FmodError
 from pyfmodex.utils import ckresult
 from pyfmodex.globalvars import dll as _dll
-from ctypes import *
+from ctypes import c_float, byref
 
 
 class FMOD:
+    """
+    FMOD managgement. Provides basic functions, allowing abstraction (setListenerPositio, createReverb, for instance)
+    """
     _system = None  # static variable
     _threedSettings = None
 

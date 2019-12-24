@@ -1,4 +1,7 @@
 class GameObject:
+    """
+    base class
+    """
     x, y, width, height = 0, 0, 50, 50
     active = True
 
