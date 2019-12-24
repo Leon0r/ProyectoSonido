@@ -6,6 +6,9 @@ from FMODManagement import FMOD
 
 
 class ResourcesManager:
+    """
+    Creates a dictionary for the images / sounds stored in the corresponding folders
+    """
     _imageDictionary = {}  # stores every image {key : image}
     _soundsDictionary = {}
     _instance = None
