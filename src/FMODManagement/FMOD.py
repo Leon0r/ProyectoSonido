@@ -8,7 +8,7 @@ from pyfmodex.structures import VECTOR
 from pyfmodex.exceptions import FmodError
 from pyfmodex.utils import ckresult
 from pyfmodex.globalvars import dll as _dll
-from ctypes import c_float, byref
+from ctypes import *
 
 
 class FMOD:
@@ -166,20 +166,7 @@ class FMOD:
         geometry.position = [pos[0], pos[1], 0.0]
 
     @staticmethod
-    def addPolygonsToGeometry(geometry, numVert, vertices):
+    def addPolygonsToGeometry(geometry, vertices):
 
-        directocclusion = 0
-        reverbocclusion = 0
-        doublesided = False
-        va = VECTOR * numVert
-        varray = va(*vertices)
-        varray = { 
-            '0' : vertices[0],
-            '1' : vertices[1],
-            '2' : vertices[2],
-            '3' : vertices[3]
-            }
- 
-        idx = c_int()
-        geometry._call_fmod("FMOD_Geometry_AddPolygon", c_float(directocclusion), c_float(reverbocclusion), c_bool(doublesided), numVert, *varray, byref(idx))
-        return idx.value
+        idx = geometry.add_polygon(1.0, 1.0, False, *vertices)
+        n = 0
