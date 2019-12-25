@@ -3,6 +3,7 @@ import FMODManagement.REVERB_PRESETS as reverb_presets
 from pyfmodex.flags import MODE, TIMEUNIT
 from pyfmodex.system import System, Listener, ThreedSettings
 from pyfmodex.reverb import Reverb3D
+from pyfmodex.geometry import Geometry
 from pyfmodex.structures import VECTOR
 from pyfmodex.exceptions import FmodError
 from pyfmodex.utils import ckresult
@@ -164,6 +165,21 @@ class FMOD:
         """
         geometry.position = [pos[0], pos[1], 0.0]
 
-    # @staticmethod
-    # def addPolygonToGeometry(geometry, ...):
-    #     addPolygon...
+    @staticmethod
+    def addPolygonsToGeometry(geometry, numVert, vertices):
+
+        directocclusion = 0
+        reverbocclusion = 0
+        doublesided = False
+        va = VECTOR * numVert
+        varray = va(*vertices)
+        varray = { 
+            '0' : vertices[0],
+            '1' : vertices[1],
+            '2' : vertices[2],
+            '3' : vertices[3]
+            }
+ 
+        idx = c_int()
+        geometry._call_fmod("FMOD_Geometry_AddPolygon", c_float(directocclusion), c_float(reverbocclusion), c_bool(doublesided), numVert, *varray, byref(idx))
+        return idx.value
