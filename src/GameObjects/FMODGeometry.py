@@ -32,11 +32,11 @@ class FMODGeometry(DraggableObject):
         Creates a fmod geometry and sets its position to default (0, 0, 0)
         """
         if self._numVertex > 1:
-            self._geometry = FMOD.createGeometry(self._numVertex - 1, self._numVertex * 2)
-            self.setPosition((0,0))
             numPolygon = self._numVertex-1
+            self._geometry = FMOD.createGeometry(numPolygon + 1, (numPolygon + 2)* 4)
+            self.setPosition((0,0))
 
-            for v in range(numPolygon - 1): # Loop through the number of polygons, creating them
+            for v in range(numPolygon): # Loop through the number of polygons, creating them
                 vert = (VECTOR(self._vertexes[v][0], self._vertexes[v][1], -1),
                         VECTOR(self._vertexes[v+1][0], self._vertexes[v+1][1], -1),
                         VECTOR(self._vertexes[v+1][0], self._vertexes[v+1][1], 1),
@@ -76,8 +76,6 @@ class FMODGeometry(DraggableObject):
                         self._isBeingCreated = False
                         mousePosition = pygame.mouse.get_pos()
                         self.addGeometry()
-                        self._geometry
-                        self.setPosition(self._vertexes[0])
 
         return handled
 
