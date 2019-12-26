@@ -167,6 +167,4 @@ class FMOD:
 
     @staticmethod
     def addPolygonsToGeometry(geometry, vertices):
-
-        idx = geometry.add_polygon(1.0, 1.0, False, *vertices)
-        n = 0
+        geometry.add_polygon(0.75, 0.75, True, *vertices)

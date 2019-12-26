@@ -37,10 +37,10 @@ class FMODGeometry(DraggableObject):
             self.setPosition((0,0))
 
             for v in range(numPolygon): # Loop through the number of polygons, creating them
-                vert = (VECTOR(self._vertexes[v][0], self._vertexes[v][1], -1),
-                        VECTOR(self._vertexes[v+1][0], self._vertexes[v+1][1], -1),
+                vert = (VECTOR(self._vertexes[v][0], self._vertexes[v][1], 1),
                         VECTOR(self._vertexes[v+1][0], self._vertexes[v+1][1], 1),
-                        VECTOR(self._vertexes[v][0], self._vertexes[v][1], 1))
+                        VECTOR(self._vertexes[v+1][0], self._vertexes[v+1][1], -1),
+                        VECTOR(self._vertexes[v][0], self._vertexes[v][1], -1))
 
                 FMOD.addPolygonsToGeometry(self._geometry, vert)
 
@@ -55,7 +55,6 @@ class FMODGeometry(DraggableObject):
         if self._numVertex > 1:
             for v in range(self._numVertex - 1):
                 pygame.draw.line(pygameScreen, 0x000000, self._vertexes[v],self._vertexes[v+1], 3)
-
 
     def handleInput(self, event):
         """
@@ -72,9 +71,7 @@ class FMODGeometry(DraggableObject):
                         self._numVertex += 1
                     elif event.button == 3:  # 3: RIGHT_CLICK
                         pygame.mouse.set_cursor(*pygame.cursors.arrow) # changes cursor to mark geometry is finished
-                        #### -> FMOD.addPolygon
                         self._isBeingCreated = False
-                        mousePosition = pygame.mouse.get_pos()
                         self.addGeometry()
 
         return handled
