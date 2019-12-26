@@ -52,9 +52,8 @@ def addFMODReverb(gameObjects, imageName, _object):
     gameObjects.insert(0, fmodReverb)
 
 
-def addFMODGeometry(gameObjects, imageName, _object):
+def addFMODGeometry(gameObjects, _object):
     fmodGeometry = FMODGeometry()
-    fmodGeometry.setSpriteFromImage(resourcesManager.getImage(imageName))
     fmodGeometry.setPosition((_object.getX(), _object.getY()))
     # inserts the element at tht beggining of the list
     gameObjects.insert(0, fmodGeometry)
@@ -80,10 +79,11 @@ resourcesManager.loadSoundsFromDirectory(
 
 # -------------------GAME OBJECTS-------------------------
 gameObjects = []
-popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb", "Remove last element"],
+popUp = PopUpMenu(["Add Listener", "Add Source", "Add Reverb", "Add Geometry", "Remove last element"],
                   [(addFMODListener, [gameObjects, "Listener.png"]),
                    (addFMODSource, [gameObjects, "Source.png", "steps0.wav"]),
                    (addFMODReverb, [gameObjects, "Reverb.png"]),
+                   (addFMODGeometry, [gameObjects]),
                    (removeLastElementInserted, [gameObjects])], 0xccedf3)
 
 gameObjects.append(popUp)
