@@ -54,7 +54,7 @@ class FMODGeometry(DraggableObject):
 
         if self._numVertex > 1:
             for v in range(self._numVertex - 1):
-                pygame.draw.line(pygameScreen, 0x000000, self._vertexes[v],self._vertexes[v+1], 3)
+                pygame.draw.line(pygameScreen, 0xB13B9B, self._vertexes[v],self._vertexes[v+1], 3)
 
     def handleInput(self, event):
         """
