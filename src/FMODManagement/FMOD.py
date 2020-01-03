@@ -154,7 +154,8 @@ class FMOD:
     def createGeometry(maxpoligons=1, maxvertices=4):
         """
         creates a FMOD geometry object. In order for it to work, you need 
-        to establish the polygons (FMOD doc, source: https://www.rubydoc.info/gems/fmod/FMOD/Geometry)
+        to establish the polygons 
+        (FMOD doc, source: https://www.rubydoc.info/gems/fmod/FMOD/Geometry)
         """
         return FMOD._system.create_geometry(maxpoligons, maxvertices)
 

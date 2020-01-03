@@ -6,11 +6,11 @@ from pyfmodex.structures import VECTOR
 from ctypes import c_float, byref
 
 class FMODGeometry(DraggableObject):
-    """
-    To create Geometry, once pressed the option in the menu, 
-    use LEFT_CLICK to set vertexes on screen, 
-    press RIGHT_CLICK when finished 
-    """
+    
+    # To create Geometry, once pressed the option in the menu, 
+    # use LEFT_CLICK to set vertexes on screen, 
+    # press RIGHT_CLICK when finished 
+    
     _geometry = None
     _isBeingCreated = True # true since creation till RIGHT_CLICK
     _vertexes = []
@@ -19,7 +19,6 @@ class FMODGeometry(DraggableObject):
     def __init__(self):
         """
         Creates a fmod geometry and sets its position to default (0, 0, 0)
-        Changes the cursor and initializes the game object
         """
         super()
         self._geometry = FMOD.createGeometry()
@@ -29,7 +28,8 @@ class FMODGeometry(DraggableObject):
 
     def addGeometry(self):
         """
-        Creates a fmod geometry and sets its position to default (0, 0, 0)
+        Creates a fmod geometry with the amount of vertex in numVertex 
+        Sets its position to default (0, 0, 0)
         """
         if self._numVertex > 1:
             numPolygon = self._numVertex-1
@@ -57,10 +57,10 @@ class FMODGeometry(DraggableObject):
                 pygame.draw.line(pygameScreen, 0xB13B9B, self._vertexes[v],self._vertexes[v+1], 3)
 
     def handleInput(self, event):
-        """
-        handle left click button to add vertex
-        handle right click button to end geometry creation
-        """
+        
+        # handle left click button to add vertex
+        # handle right click button to end geometry creation
+        
         handled = super().handleInput(event)
         if self.isActive():  # only if this is active
             if self._isBeingCreated:
@@ -78,7 +78,7 @@ class FMODGeometry(DraggableObject):
 
     def setPosition(self, position):
         """
-        redefined setPosition. Sets the go position and the fmodlistener position
+        redefined setPosition. Sets the go position and the geometry position
         """
         super().setPosition(position)
         FMOD.setGeometryPosition(self._geometry, position)
