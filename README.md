@@ -1,8 +1,21 @@
-ProyectoSonido
+# PYGAME / FMOD INTERFACE
 
-In order to make pyfmodex work in windows, you need to modify the first lines of your fmodex.py to:
+PYGAME / FMOD INTERFACE is a Python program for showing FMOD functions.
 
+## Installation
+
+Download the repository, install pygame and pyfmodez (pip insyall). In Windows, change your fmodex.py file lines to:
+
+```
 if arch == "32bit":
-    _dll = CDLL(".\\x86\\core\\fmod.dll")
+    _dll = CDLL(".\\x86\\core\\fmod.dll") #this folders are provided with the repository
 else:
     _dll = CDLL(".\\x64\\core\\fmod.dll")
+```
+
+```bash
+pip install foobar
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
