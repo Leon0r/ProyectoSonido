@@ -21,6 +21,8 @@ class FMODGeometry(DraggableObject):
         Creates a fmod geometry and sets its position to default (0, 0, 0)
         """
         super()
+        self._vertexes = []
+        self._numVertex = 0
         self._geometry = FMOD.createGeometry()
         self.setPosition(self.getPosition())
         pygame.mouse.set_cursor(*pygame.cursors.broken_x) # changes cursor to mark geometry is being created
@@ -43,8 +45,6 @@ class FMODGeometry(DraggableObject):
                         VECTOR(self._vertexes[v][0], self._vertexes[v][1], -1))
 
                 FMOD.addPolygonsToGeometry(self._geometry, vert)
-
-
 
     def render(self, pygameScreen):
         """
@@ -87,4 +87,8 @@ class FMODGeometry(DraggableObject):
         """
         calls fmod release geometry
         """
+        super().release()
+        self._vertexes = []
+        self._numVertex = 0
         self._geometry.release()
+        self._geometry = None
